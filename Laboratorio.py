@@ -128,7 +128,8 @@ while (len(P) != 0):
     print '-------'*(objclass.getNumC())
     print 'Funcion Mayor Valor: ', 'F'+str(position)
     print '-------'*(objclass.getNumC())
-    print
+    if position in R:
+        break
     R.append(position)
     indexN = 0
     del nP[:]
@@ -150,6 +151,7 @@ while (len(P) != 0):
                 else:
                     indexP = indexP + 1
             indexH = indexH + 1
+print
 print '-------'*(objclass.getNumC())
 print ' Ecuacion '
 print '-------'*(objclass.getNumC())
@@ -169,6 +171,8 @@ while (indexF < len(H)):
         Funtion = Funtion + '( ' + FuntionSub + ' ) + '
     else:
         Funtion = Funtion + '( ' + FuntionSub + ' ) '
+if (len(Funtion) == 0):
+    print 'No tiene solucion',
 print (Funtion)
 print '-------'*(objclass.getNumC())        
 
