@@ -10,7 +10,6 @@ class DataTable():
     NumF = 0
     NumC = 0
     def read_file(self, fileName):
-
         lines = []        
         with open(fileName, 'r') as f:
             for lines in f:
@@ -61,7 +60,17 @@ class Process():
         while (indexRo < len(RoArray)):
             Result = Result * ObjDataTable.getData(arrayData[arrayPosition], RoArray[indexRo])
             indexRo = indexRo + 1
-        return Result               
+        return Result 
+
+    def PrintMatrix(self, ObjDataTable):
+        indexF = 0
+        while (indexF <= ObjDataTable.getNumF()):
+            indexC = 0
+            while (indexC <= ObjDataTable.getNumC()):
+                print ' ',ObjDataTable.getData(indexF,indexC),' ',
+                indexC = indexC + 1
+            print
+            indexF = indexF + 1
         
            
 
@@ -98,9 +107,6 @@ while (len(P) != 0):
             divResul = float(nP[index])/ float(nN[index])
             position = index
         index = index + 1
-    print('Resultado de P', nP)
-    print('Resultado de N', nN)
-    print ('Posicion Mayor: ', position)
     R.append(position)
     indexN = 0
     del nP[:]
@@ -110,25 +116,47 @@ while (len(P) != 0):
             N.pop(indexN)
         else:
             indexN = indexN + 1
-    print ('Vector N',N)
-    print ('Vector P: ', P)
-    print('Ro: ', R)
     if (len(N) == 0):
         H.append(deepcopy(R))
-        print (H)
         indexH = 0
         del R[:]
         while (indexH < len(H)):
             indexP = 0
             while (indexP < len(P)):
                 if (objProcess.Result_Explication(H[indexH], objclass, P, indexP) == objclass.getData(P[indexP], objclass.getNumC())):
-                    print ('Posicion a Eliminar: ', P[indexP])
                     P.remove(P[indexP])
                 else:
                     indexP = indexP + 1
             indexH = indexH + 1
-        print (P)
-print (H)        
+index = 0
+print '-------'*(objclass.getNumC())
+while (index < objclass.getNumC()):
+    print '  F'+str(index + 1)+' ',
+    index = index + 1
+print '  Y  '
+print '-------'*(index)
+objProcess.PrintMatrix(objclass)
+print '-------'*(index)
+print ' Ecuacion '
+print '-------'*(index)
+indexF = 0
+Funtion = ''
+while (indexF < len(H)):
+    indexC = 0
+    FuntionSub = ''
+    while (indexC < len(H[indexF])):
+        if (len(FuntionSub) == 0):
+            FuntionSub = FuntionSub + 'F' + str(H[indexF][indexC] + 1)
+        else:
+            FuntionSub = FuntionSub + ' * F' + str(H[indexF][indexC] + 1)
+        indexC = indexC + 1
+    indexF = indexF + 1
+    if (indexF < len(H)):
+        Funtion = Funtion + '( ' + FuntionSub + ' ) + '
+    else:
+        Funtion = Funtion + '( ' + FuntionSub + ' ) '
+print (Funtion)
+print '-------'*(index)        
 
 
 
